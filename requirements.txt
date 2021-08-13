@@ -1,3 +1,5 @@
 torch
 skorch
 pytest
+telethon
+environs
