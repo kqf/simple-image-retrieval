@@ -1,13 +1,16 @@
 from telethon import TelegramClient
+from environs import Env
+
+
+env = Env()
+env.read_env()
 
 
 def main():
-    api_id = 1
-    api_hash = 'lol'
-    username = 'lol'
+    username = env("USERNAME")
     picture = 'pepe.jpg'
 
-    client = TelegramClient('session_name', api_id, api_hash)
+    client = TelegramClient('session_name', env("API_ID"), env("API_HASH"))
     client.start()
 
     print(client.get_me().stringify())
