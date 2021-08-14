@@ -1,3 +1,5 @@
+import asyncio
+
 from telethon import TelegramClient
 from environs import Env
 
@@ -7,24 +9,25 @@ env.read_env()
 
 
 def main():
-    username = env("USERNAME")
-    picture = 'pepe.jpg'
+    # username = env("USERNAME")
+    # picture = 'pepe.jpg'
 
-    client = TelegramClient('session_name', env("API_ID"), env("API_HASH"))
-    client.start()
+    with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
+        dialogs = asyncio.run(client.get_dialogs())
+        print(dialogs)
 
-    print(client.get_me().stringify())
+        # print(client.get_me().stringify())
 
-    client.send_message(username, 'Hello world!')
-    client.send_file(username, picture)
+        # client.send_message(username, 'Hello world!')
+        # client.send_file(username, picture)
 
-    client.download_profile_photo('me')
-    messages = client.get_messages(username)
-    messages[0].download_media()
+        # client.download_profile_photo('me')
+        # messages = client.get_messages(username)
+        # messages[0].download_media()
 
-    # @client.on(events.NewMessage(pattern='(?i)hi|hello'))
-    # async def handler(event):
-    #     await event.respond('Hey!')
+        # @client.on(events.NewMessage(pattern='(?i)hi|hello'))
+        # async def handler(event):
+        #     await event.respond('Hey!')
 
 
 if __name__ == '__main__':
