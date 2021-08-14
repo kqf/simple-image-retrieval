@@ -108,6 +108,4 @@ ENV/
 *.pickle
 *.pkl
 
-session_name.session
-test.session
-test.session-journal
+*.session*
