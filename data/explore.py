@@ -1,11 +1,28 @@
-import asyncio
-
-from telethon import TelegramClient
+from telethon.sync import TelegramClient
 from environs import Env
+import logging
+logging.basicConfig(
+    format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
+    level=logging.INFO)
 
 
 env = Env()
 env.read_env()
+
+fields = [
+    'date',
+    'entity',
+    'folder_id',
+    'id',
+    'is_channel',
+    'is_group',
+    'is_user',
+    'name',
+    'title',
+    'to_dict',
+    'unread_count',
+    'unread_mentions_count'
+]
 
 
 def main():
@@ -13,7 +30,7 @@ def main():
     # picture = 'pepe.jpg'
 
     with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
-        dialogs = asyncio.run(client.get_dialogs())
+        dialogs = client.get_dialogs()
         print(dialogs)
 
         # print(client.get_me().stringify())
