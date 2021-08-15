@@ -12,12 +12,17 @@ env = Env()
 env.read_env()
 
 
-client = TelegramClient('test', env("API_ID"), env("API_HASH"))
+def main():
+
+    client = TelegramClient('test', env("API_ID"), env("API_HASH"))
+
+    @client.on(events.NewMessage)
+    async def my_replier(event):
+        await event.reply('🔥')
+
+    client.start()
+    client.run_until_disconnected()
 
 
-@client.on(events.NewMessage)
-async def my_replier(event):
-    await event.reply('🔥')
-
-client.start()
-client.run_until_disconnected()
+if __name__ == '__main__':
+    main()
