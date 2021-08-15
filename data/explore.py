@@ -4,6 +4,8 @@ from operator import attrgetter
 
 from telethon.sync import TelegramClient
 from environs import Env
+from data.schema import TARGET_FIELDS
+
 logging.basicConfig(
     format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
     level=logging.INFO)
@@ -11,19 +13,6 @@ logging.basicConfig(
 
 env = Env()
 env.read_env()
-
-TARGET_FIELDS = [
-    'entity.date',
-    'folder_id',
-    'id',
-    'is_channel',
-    'is_group',
-    'is_user',
-    'name',
-    'title',
-    'unread_count',
-    'unread_mentions_count'
-]
 
 
 def dump(client, fields):
