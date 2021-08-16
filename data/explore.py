@@ -30,10 +30,8 @@ def dump(client, fields):
 
 @click.command()
 @click.option("--titles", type=click.Path(exists=True), default="titles.txt")
+@click.option("--output", type=click.Path(exists=False), default="output.txt")
 def main(titles):
-    # username = env("USERNAME")
-    # picture = 'pepe.jpg'
-
     targets = pd.read_csv(titles, names=["title"])
     print(targets)
 
