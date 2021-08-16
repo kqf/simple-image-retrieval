@@ -1,3 +1,4 @@
+import click
 import logging
 import pandas as pd
 from operator import attrgetter
@@ -8,7 +9,8 @@ from data.schema import TARGET_FIELDS
 
 logging.basicConfig(
     format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-    level=logging.INFO)
+    level=logging.INFO
+)
 
 
 env = Env()
@@ -26,13 +28,19 @@ def dump(client, fields):
         yield dialog_dict
 
 
-def main():
+@click.command()
+@click.option("--titles", type=click.Path(exists=True), default="titles.txt")
+def main(titles):
     # username = env("USERNAME")
     # picture = 'pepe.jpg'
 
+    targets = pd.read_csv(titles, names=["title"])
+    print(targets)
+
     with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
         dialogs = dump(client, TARGET_FIELDS)
-        df = pd.DataFrame(dialogs)
+        raw = pd.DataFrame(dialogs)
+        df = pd.merge(raw, targets, on=["title"])
         print(df)
 
         # print(client.get_me().stringify())

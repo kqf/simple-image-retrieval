@@ -2,3 +2,4 @@ pytest
 telethon
 environs
 pandas
+click
