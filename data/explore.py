@@ -1,3 +1,4 @@
+import click
 import logging
 import pandas as pd
 from operator import attrgetter
@@ -8,7 +9,8 @@ from data.schema import TARGET_FIELDS
 
 logging.basicConfig(
     format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-    level=logging.INFO)
+    level=logging.INFO
+)
 
 
 env = Env()
@@ -26,7 +28,9 @@ def dump(client, fields):
         yield dialog_dict
 
 
-def main():
+@click.command()
+@click.option("--groups", type=click.Path(exist=True), default="groups.txt")
+def main(groups):
     # username = env("USERNAME")
     # picture = 'pepe.jpg'
 
