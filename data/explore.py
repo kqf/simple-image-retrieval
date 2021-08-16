@@ -4,6 +4,8 @@ from operator import attrgetter
 
 from telethon.sync import TelegramClient
 from environs import Env
+from data.schema import TARGET_FIELDS
+
 logging.basicConfig(
     format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
     level=logging.INFO)
@@ -12,29 +14,16 @@ logging.basicConfig(
 env = Env()
 env.read_env()
 
-fields = [
-    'entity.date',
-    'folder_id',
-    'id',
-    'is_channel',
-    'is_group',
-    'is_user',
-    'name',
-    'title',
-    'unread_count',
-    'unread_mentions_count'
-]
 
-
-def to_dict(dialog, fields):
-    dump = {}
-    for field in fields:
-        try:
-            dump[field] = attrgetter(field)(dialog)
-        except AttributeError:
-            dump[field] = None
-
-    return dump
+def dump(client, fields):
+    for dialog in client.get_dialogs():
+        dialog_dict = {}
+        for field in fields:
+            try:
+                dialog_dict[field] = attrgetter(field)(dialog)
+            except AttributeError:
+                dialog_dict[field] = None
+        yield dialog_dict
 
 
 def main():
@@ -42,8 +31,7 @@ def main():
     # picture = 'pepe.jpg'
 
     with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
-        dialogs = [to_dict(d, fields) for d in client.get_dialogs()]
-        print(dialogs)
+        dialogs = dump(client, TARGET_FIELDS)
         df = pd.DataFrame(dialogs)
         print(df)
 
