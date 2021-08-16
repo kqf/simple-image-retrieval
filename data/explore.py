@@ -30,10 +30,8 @@ def dump(client, fields):
 
 @click.command()
 @click.option("--titles", type=click.Path(exists=True), default="titles.txt")
-def main(titles):
-    # username = env("USERNAME")
-    # picture = 'pepe.jpg'
-
+@click.option("--output", type=click.Path(exists=False), default="output.txt")
+def main(titles, output):
     targets = pd.read_csv(titles, names=["title"])
     print(targets)
 
@@ -42,6 +40,7 @@ def main(titles):
         raw = pd.DataFrame(dialogs)
         df = pd.merge(raw, targets, on=["title"])
         print(df)
+        df.to_csv(output, sep="\t", index=False)
 
         # print(client.get_me().stringify())
 
