@@ -29,14 +29,18 @@ def dump(client, fields):
 
 
 @click.command()
-@click.option("--groups", type=click.Path(exist=True), default="groups.txt")
-def main(groups):
+@click.option("--titles", type=click.Path(exists=True), default="titles.txt")
+def main(titles):
     # username = env("USERNAME")
     # picture = 'pepe.jpg'
 
+    targets = pd.read_csv(titles, names=["title"])
+    print(targets)
+
     with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
         dialogs = dump(client, TARGET_FIELDS)
-        df = pd.DataFrame(dialogs)
+        raw = pd.DataFrame(dialogs)
+        df = pd.merge(raw, targets, on=["title"])
         print(df)
 
         # print(client.get_me().stringify())
