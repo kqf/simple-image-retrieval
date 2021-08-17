@@ -1,16 +1,10 @@
 import click
-import logging
 import pandas as pd
 from operator import attrgetter
 
 from telethon.sync import TelegramClient
 from environs import Env
 from data.schema import TARGET_FIELDS
-
-logging.basicConfig(
-    format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-    level=logging.INFO
-)
 
 
 env = Env()
@@ -41,19 +35,6 @@ def main(titles, output):
         df = pd.merge(raw, targets, on=["title"])
         print(df)
         df.to_csv(output, sep="\t", index=False)
-
-        # print(client.get_me().stringify())
-
-        # client.send_message(username, 'Hello world!')
-        # client.send_file(username, picture)
-
-        # client.download_profile_photo('me')
-        # messages = client.get_messages(username)
-        # messages[0].download_media()
-
-        # @client.on(events.NewMessage(pattern='(?i)hi|hello'))
-        # async def handler(event):
-        #     await event.respond('Hey!')
 
 
 if __name__ == '__main__':
