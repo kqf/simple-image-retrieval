@@ -1,16 +1,10 @@
 import click
-import logging
 import pandas as pd
 from operator import attrgetter
 
 from telethon.sync import TelegramClient
 from environs import Env
 from data.schema import TARGET_FIELDS
-
-logging.basicConfig(
-    format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
-    level=logging.INFO
-)
 
 
 env = Env()
