@@ -24,7 +24,7 @@ def main(target, output):
                 reverse=True,
             )
             for message in messages:
-                pass
+                import ipdb; ipdb.set_trace(); import IPython; IPython.embed() # noqa
 
 
 if __name__ == '__main__':
