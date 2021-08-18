@@ -7,6 +7,7 @@ from telethon.sync import TelegramClient
 from contextlib import contextmanager
 from functools import partial
 
+
 env = Env()
 env.read_env()
 telegram = partial(
@@ -29,7 +30,8 @@ def dump_list(ofile):
 @click.option("--target", type=click.Path(exists=True), default="titles.txt")
 @click.option("--output", type=click.Path(exists=False), default="output.txt")
 @click.option("--photos", type=click.Path(), default="photos")
-def main(target, output, photos):
+@click.option("--limit", int, default=20)
+def main(target, output, photos, limit):
     df = pd.read_csv(target, sep="\t")
     df["entity.date"] = pd.to_datetime(df["entity.date"])
     candidates = df[["title", "entity.date"]]
@@ -42,13 +44,12 @@ def main(target, output, photos):
                 entity=entity,
                 offset_date=date,
                 reverse=True,
+                # filter=InputMessagesFilterPhotos(), # This doesn't work
+                limit=limit,
             )
             for i, message in enumerate(messages):
                 if message.photo is None:
                     continue
-
-                if i > 20:
-                    break
                 imgpath = lpath / str(message.photo.access_hash)
                 fname = message.download_media(imgpath)
                 print(fname)
