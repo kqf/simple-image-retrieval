@@ -22,7 +22,7 @@ def dump_list(ofile):
     yield data
     df = pd.DataFrame(data)
     print(df)
-    df.to_csv(ofile)
+    df.to_csv(ofile, index=False)
 
 
 @click.command()
@@ -46,8 +46,8 @@ def main(target, output, photos):
             for i, message in enumerate(messages):
                 if i > 5:
                     break
-                download_path = lpath / str(message.photo.access_hash)
-                fname = message.download_media(download_path)
+                imgpath = lpath / str(message.photo.access_hash)
+                fname = message.download_media(imgpath)
                 print(fname)
                 metadata.append({
                     "file": fname,
