@@ -17,6 +17,8 @@ def main(target, output, photos):
     df = pd.read_csv(target, sep="\t")
     df["entity.date"] = pd.to_datetime(df["entity.date"])
     candidates = df[["title", "entity.date"]]
+
+    metadata = []
     with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
         for idx, (title, date) in candidates.iterrows():
             lpath = Path(photos) / title
@@ -32,6 +34,14 @@ def main(target, output, photos):
                 download_path = lpath / str(message.photo.access_hash)
                 fname = message.download_media(download_path)
                 print(fname)
+                metadata.append({
+                    "file": fname,
+                    "source": title,
+                })
+
+    odf = pd.DataFrame(metadata)
+    print(odf)
+    odf.to_csv(output)
 
 
 if __name__ == '__main__':
