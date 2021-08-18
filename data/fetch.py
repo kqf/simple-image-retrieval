@@ -44,6 +44,9 @@ def main(target, output, photos):
                 reverse=True,
             )
             for i, message in enumerate(messages):
+                if message.image is None:
+                    continue
+
                 if i > 5:
                     break
                 imgpath = lpath / str(message.photo.access_hash)
@@ -52,6 +55,7 @@ def main(target, output, photos):
                 metadata.append({
                     "file": fname,
                     "source": title,
+                    "date": message.date,
                 })
 
 
