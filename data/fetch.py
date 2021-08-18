@@ -7,6 +7,9 @@ from telethon.sync import TelegramClient
 from contextlib import contextmanager
 from functools import partial
 
+from telethon.tl.types import InputMessagesFilterPhotos
+from telethon.tl.types import InputMessagesFilterChatPhotos
+
 env = Env()
 env.read_env()
 telegram = partial(
@@ -42,11 +45,9 @@ def main(target, output, photos):
                 entity=entity,
                 offset_date=date,
                 reverse=True,
+                filter=InputMessagesFilterPhotos(),
             )
             for i, message in enumerate(messages):
-                if message.photo is None:
-                    continue
-
                 if i > 20:
                     break
                 imgpath = lpath / str(message.photo.access_hash)
