@@ -30,7 +30,8 @@ def dump_list(ofile):
 @click.option("--target", type=click.Path(exists=True), default="titles.txt")
 @click.option("--output", type=click.Path(exists=False), default="output.txt")
 @click.option("--photos", type=click.Path(), default="photos")
-def main(target, output, photos):
+@click.option("--limit", int, default=20)
+def main(target, output, photos, limit):
     df = pd.read_csv(target, sep="\t")
     df["entity.date"] = pd.to_datetime(df["entity.date"])
     candidates = df[["title", "entity.date"]]
@@ -44,7 +45,7 @@ def main(target, output, photos):
                 offset_date=date,
                 reverse=True,
                 # filter=InputMessagesFilterPhotos(), # This doesn't work
-                limit=20,
+                limit=limit,
             )
             for i, message in enumerate(messages):
                 if message.photo is None:
