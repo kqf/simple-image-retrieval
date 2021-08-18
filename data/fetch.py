@@ -44,10 +44,10 @@ def main(target, output, photos):
                 reverse=True,
             )
             for i, message in enumerate(messages):
-                if message.image is None:
+                if message.photo is None:
                     continue
 
-                if i > 5:
+                if i > 20:
                     break
                 imgpath = lpath / str(message.photo.access_hash)
                 fname = message.download_media(imgpath)
