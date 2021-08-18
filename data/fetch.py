@@ -39,8 +39,9 @@ def main(target, output, photos):
                     "source": title,
                 })
 
-    df = pd.DataFrame(metadata)
-    print(df)
+    odf = pd.DataFrame(metadata)
+    print(odf)
+    odf.to_csv(output)
 
 
 if __name__ == '__main__':
