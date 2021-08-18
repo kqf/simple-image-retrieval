@@ -4,9 +4,19 @@ import pandas as pd
 from pathlib import Path
 from environs import Env
 from telethon.sync import TelegramClient
+from contextlib import contextmanager
 
 env = Env()
 env.read_env()
+
+
+@contextmanager
+def dump_data(ofile):
+    data = []
+    yield data
+    df = pd.DataFrame(data)
+    print(df)
+    df.to_csv(ofile)
 
 
 @click.command()
@@ -18,8 +28,8 @@ def main(target, output, photos):
     df["entity.date"] = pd.to_datetime(df["entity.date"])
     candidates = df[["title", "entity.date"]]
 
-    metadata = []
-    with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
+    with TelegramClient('test', env("API_ID"), env("API_HASH")) as client, \
+            dump_data(output) as metadata:
         for idx, (title, date) in candidates.iterrows():
             lpath = Path(photos) / title
             entity = client.get_entity(title)
@@ -38,10 +48,6 @@ def main(target, output, photos):
                     "file": fname,
                     "source": title,
                 })
-
-    odf = pd.DataFrame(metadata)
-    print(odf)
-    odf.to_csv(output)
 
 
 if __name__ == '__main__':
