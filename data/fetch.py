@@ -7,8 +7,6 @@ from telethon.sync import TelegramClient
 from contextlib import contextmanager
 from functools import partial
 
-from telethon.tl.types import InputMessagesFilterPhotos
-from telethon.tl.types import InputMessagesFilterChatPhotos
 
 env = Env()
 env.read_env()
@@ -45,11 +43,12 @@ def main(target, output, photos):
                 entity=entity,
                 offset_date=date,
                 reverse=True,
-                filter=InputMessagesFilterPhotos(),
+                # filter=InputMessagesFilterPhotos(), # This doesn't work
+                limit=20,
             )
             for i, message in enumerate(messages):
-                if i > 20:
-                    break
+                if message.photo is None:
+                    continue
                 imgpath = lpath / str(message.photo.access_hash)
                 fname = message.download_media(imgpath)
                 print(fname)
