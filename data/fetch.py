@@ -5,13 +5,19 @@ from pathlib import Path
 from environs import Env
 from telethon.sync import TelegramClient
 from contextlib import contextmanager
+from functools import partial
 
 env = Env()
 env.read_env()
+telegram = partial(
+    TelegramClient,
+    api_id=env("API_ID"),
+    api_hash=env("API_HASH")
+)
 
 
 @contextmanager
-def dump_data(ofile):
+def dump_list(ofile):
     data = []
     yield data
     df = pd.DataFrame(data)
@@ -28,8 +34,7 @@ def main(target, output, photos):
     df["entity.date"] = pd.to_datetime(df["entity.date"])
     candidates = df[["title", "entity.date"]]
 
-    with TelegramClient('test', env("API_ID"), env("API_HASH")) as client, \
-            dump_data(output) as metadata:
+    with telegram('test') as client, dump_list(output) as metadata:
         for idx, (title, date) in candidates.iterrows():
             lpath = Path(photos) / title
             entity = client.get_entity(title)
