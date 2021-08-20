@@ -7,4 +7,7 @@ data/output.txt: titles.txt
 clean: 
 	rm -rf output.txt
 
-.PHONY: clean
+clean-download:
+	rm -rf data/photos
+
+.PHONY: clean clean-download
