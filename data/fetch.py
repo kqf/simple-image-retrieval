@@ -26,6 +26,12 @@ def dump_list(ofile):
     df.to_csv(ofile, index=False)
 
 
+def candidates(df):
+    df["entity.date"] = pd.to_datetime(df["entity.date"])
+    candidates = df[["title", "entity.date"]]
+    return candidates.iterrows()
+
+
 @click.command()
 @click.option("--target", type=click.Path(exists=True), default="titles.txt")
 @click.option("--output", type=click.Path(exists=False), default="output.txt")
@@ -33,11 +39,9 @@ def dump_list(ofile):
 @click.option("--limit", type=int, default=20)
 def main(target, output, photos, limit):
     df = pd.read_csv(target, sep="\t")
-    df["entity.date"] = pd.to_datetime(df["entity.date"])
-    candidates = df[["title", "entity.date"]]
 
     with telegram('test') as client, dump_list(output) as metadata:
-        for idx, (title, date) in candidates.iterrows():
+        for idx, (title, date) in candidates(df):
             lpath = Path(photos) / title
             entity = client.get_entity(title)
             messages = client.iter_messages(
