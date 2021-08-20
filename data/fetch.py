@@ -54,9 +54,9 @@ def main(target, output, photos, limit):
             for i, message in enumerate(messages):
                 if message.photo is None:
                     continue
+
                 imgpath = lpath / str(message.photo.access_hash)
                 fname = message.download_media(imgpath)
-                print(fname)
                 metadata.append({
                     "file": fname,
                     "source": title,
