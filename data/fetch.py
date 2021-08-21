@@ -1,3 +1,4 @@
+import tqdm
 import click
 import pandas as pd
 
@@ -52,7 +53,7 @@ def main(target, output, images, limit):
                 # filter=InputMessagesFilterimages(), # This doesn't work
                 limit=limit,
             )
-            for i, message in enumerate(messages):
+            for message in tqdm.tqdm(messages):
                 if message.photo is None:
                     continue
 
