@@ -59,12 +59,16 @@ def main(target, output, images, limit):
 
                 imgpath = lpath / str(message.photo.access_hash)
                 fname = message.download_media(imgpath)
+                sizes = message.photo.sizes[-1]
                 metadata.append({
                     "file": fname,
                     "source": title,
                     "date": message.date,
                     "photo_id": message.photo_id,
                     "reference": message.photo.file_reference,
+                    "reference": message.photo.file_reference,
+                    "width": sizes.w,
+                    "height": sizes.h,
                 })
 
 
