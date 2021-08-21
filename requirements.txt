@@ -3,3 +3,4 @@ telethon
 environs
 pandas
 click
+tqdm
