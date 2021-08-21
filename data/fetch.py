@@ -38,7 +38,7 @@ def candidates(df):
 @click.option("--target", type=cpth(exists=True), default="titles.txt")
 @click.option("--output", type=cpth(exists=False), default="data/output.txt")
 @click.option("--images", type=cpth(), default="data/images")
-@click.option("--limit", type=int, default=20)
+@click.option("--limit", type=int, default=None)
 def main(target, output, images, limit):
     df = pd.read_csv(target, sep="\t")
 
