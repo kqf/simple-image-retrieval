@@ -35,20 +35,20 @@ def candidates(df):
 @click.command()
 @click.option("--target", type=click.Path(exists=True), default="titles.txt")
 @click.option("--output", type=click.Path(exists=False), default="output.txt")
-@click.option("--photos", type=click.Path(), default="photos")
+@click.option("--images", type=click.Path(), default="images")
 @click.option("--limit", type=int, default=20)
-def main(target, output, photos, limit):
+def main(target, output, images, limit):
     df = pd.read_csv(target, sep="\t")
 
     with telegram('test') as client, dump_list(output) as metadata:
         for idx, (title, date) in candidates(df):
-            lpath = Path(photos) / title
+            lpath = Path(images) / title
             entity = client.get_entity(title)
             messages = client.iter_messages(
                 entity=entity,
                 offset_date=date,
                 reverse=True,
-                # filter=InputMessagesFilterPhotos(), # This doesn't work
+                # filter=InputMessagesFilterimages(), # This doesn't work
                 limit=limit,
             )
             for i, message in enumerate(messages):
