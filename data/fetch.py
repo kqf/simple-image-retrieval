@@ -38,7 +38,7 @@ def candidates(df):
 @click.option("--target", type=cpth(exists=True), default="titles.txt")
 @click.option("--output", type=cpth(exists=False), default="data/output.txt")
 @click.option("--images", type=cpth(), default="data/images")
-@click.option("--limit", type=int, default=20)
+@click.option("--limit", type=int, default=None)
 def main(target, output, images, limit):
     df = pd.read_csv(target, sep="\t")
 
@@ -59,10 +59,16 @@ def main(target, output, images, limit):
 
                 imgpath = lpath / str(message.photo.access_hash)
                 fname = message.download_media(imgpath)
+                sizes = message.photo.sizes[-1]
                 metadata.append({
                     "file": fname,
                     "source": title,
                     "date": message.date,
+                    "photo_id": message.photo_id,
+                    "reference": message.photo.file_reference,
+                    "reference": message.photo.file_reference,
+                    "width": sizes.w,
+                    "height": sizes.h,
                 })
 
 
