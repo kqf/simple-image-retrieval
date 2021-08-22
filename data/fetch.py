@@ -66,7 +66,6 @@ def main(target, output, images, limit):
                     "date": message.date,
                     "photo_id": message.photo_id,
                     "reference": message.photo.file_reference,
-                    "reference": message.photo.file_reference,
                     "width": sizes.w,
                     "height": sizes.h,
                 })
