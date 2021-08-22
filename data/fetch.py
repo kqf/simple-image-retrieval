@@ -1,5 +1,6 @@
 import tqdm
 import click
+import logging
 import pandas as pd
 
 from click import Path as cpth
@@ -9,6 +10,7 @@ from telethon.sync import TelegramClient
 from contextlib import contextmanager
 from functools import partial
 
+logger = logging.getLogger(__name__)
 
 env = Env()
 env.read_env()
@@ -24,7 +26,7 @@ def dump_list(ofile):
     data = []
     yield data
     df = pd.DataFrame(data)
-    print(df)
+    logger.warning("Dumping the dataframe %s", df)
     df.to_csv(ofile, index=False)
 
 
@@ -44,6 +46,7 @@ def main(target, output, images, limit):
 
     with telegram('test') as client, dump_list(output) as metadata:
         for idx, (title, date) in candidates(df):
+            logger.info("Processing source %s", title)
             lpath = Path(images) / title
             entity = client.get_entity(title)
             messages = client.iter_messages(
