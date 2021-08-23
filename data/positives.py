@@ -38,7 +38,7 @@ def dump_list(ofile):
 def main(target, output, images, limit):
     df = pd.read_csv(target, names=["title"])
     with telegram('test') as client, dump_list(output) as metadata:
-        for idx, title in df.iterrows():
+        for idx, (title,) in df.iterrows():
             logger.info("Processing source %s", title)
             lpath = Path(images) / title
             entity = client.get_entity(title)
