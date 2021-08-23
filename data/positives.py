@@ -49,7 +49,8 @@ def main(target, output, images, limit):
                 limit=limit,
             )
             for message in tqdm.tqdm(messages):
-                if message.photo is None:
+                # Only outgouing photos
+                if message.photo is None or not message.out:
                     continue
 
                 imgpath = lpath / str(message.photo.access_hash)
