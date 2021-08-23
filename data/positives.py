@@ -30,28 +30,20 @@ def dump_list(ofile):
     df.to_csv(ofile, index=False)
 
 
-def candidates(df):
-    df["entity.date"] = pd.to_datetime(df["entity.date"])
-    candidates = df[["title", "entity.date"]]
-    return candidates.iterrows()
-
-
 @click.command()
-@click.option("--target", type=cpth(exists=True), default="titles.txt")
+@click.option("--target", type=cpth(exists=True), default="data/targets.txt")
 @click.option("--output", type=cpth(exists=False), default="data/output.txt")
 @click.option("--images", type=cpth(), default="data/images")
 @click.option("--limit", type=int, default=None)
 def main(target, output, images, limit):
-    df = pd.read_csv(target, sep="\t")
-
+    df = pd.read_csv(target, names=["title"])
     with telegram('test') as client, dump_list(output) as metadata:
-        for idx, (title, date) in candidates(df):
+        for idx, title in df.iterrows():
             logger.info("Processing source %s", title)
             lpath = Path(images) / title
             entity = client.get_entity(title)
             messages = client.iter_messages(
                 entity=entity,
-                offset_date=date,
                 reverse=True,
                 # filter=InputMessagesFilterimages(), # This doesn't work
                 limit=limit,
