@@ -37,7 +37,7 @@ def candidates(df):
 
 
 @click.command()
-@click.option("--target", type=cpth(exists=True), default="titles.txt")
+@click.option("--target", type=cpth(exists=True), default="targets.txt")
 @click.option("--output", type=cpth(exists=False), default="data/output.txt")
 @click.option("--images", type=cpth(), default="data/images")
 @click.option("--limit", type=int, default=None)
