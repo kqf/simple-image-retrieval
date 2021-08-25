@@ -10,7 +10,6 @@ from data.base import telegram, dump_list
 logger = logging.getLogger(__name__)
 
 
-
 def candidates(df):
     df["entity.date"] = pd.to_datetime(df["entity.date"])
     candidates = df[["title", "entity.date"]]
