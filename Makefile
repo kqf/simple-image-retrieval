@@ -1,10 +1,10 @@
 data/positives.csv: data/targets.txt data/positives.py
 	python data/positives.py --target $< --output $@ --limit 100
 
-data/data.csv: data/output.txt data/*.py
+data/data.csv: data/sources.txt data/*.py
 	python data/anchors.py --target $< --output $@ --limit 10
 
-data/output.txt: titles.txt
+data/sources.txt: titles.txt
 	python data/explore.py --titles titles.txt --output $@
 
 clean: 
