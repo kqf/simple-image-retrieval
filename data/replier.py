@@ -1,17 +1,11 @@
 import logging
 
 from telethon import events
-from environs import Env
-
 from data.base import telegram
 
 logging.basicConfig(
     format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
     level=logging.INFO)
-
-
-env = Env()
-env.read_env()
 
 
 def main():
