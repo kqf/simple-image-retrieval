@@ -1,9 +1,12 @@
 import click
+import logging
 import pandas as pd
 from operator import attrgetter
 
 from data.schema import TARGET_FIELDS
 from data.base import telegram
+
+logger = logging.getLogger(__name__)
 
 
 def dump(client, fields):
@@ -22,13 +25,13 @@ def dump(client, fields):
 @click.option("--output", type=click.Path(exists=False), default="output.txt")
 def main(titles, output):
     targets = pd.read_csv(titles, names=["title"])
-    print(targets)
+    logger.info("Processing source %s", targets)
 
     with telegram("test") as client:
         dialogs = dump(client, TARGET_FIELDS)
         raw = pd.DataFrame(dialogs)
         df = pd.merge(raw, targets, on=["title"])
-        print(df)
+        logging.info('Processing dialogues %', df)
         df.to_csv(output, sep="\t", index=False)
 
 
