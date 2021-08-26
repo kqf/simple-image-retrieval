@@ -2,13 +2,8 @@ import click
 import pandas as pd
 from operator import attrgetter
 
-from telethon.sync import TelegramClient
-from environs import Env
 from data.schema import TARGET_FIELDS
-
-
-env = Env()
-env.read_env()
+from data.base import telegram
 
 
 def dump(client, fields):
@@ -29,7 +24,7 @@ def main(titles, output):
     targets = pd.read_csv(titles, names=["title"])
     print(targets)
 
-    with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
+    with telegram("test") as client:
         dialogs = dump(client, TARGET_FIELDS)
         raw = pd.DataFrame(dialogs)
         df = pd.merge(raw, targets, on=["title"])
