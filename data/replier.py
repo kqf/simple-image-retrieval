@@ -1,7 +1,9 @@
 import logging
 
-from telethon import TelegramClient, events
+from telethon import events
 from environs import Env
+
+from data.base import telegram
 
 logging.basicConfig(
     format='[%(levelname) 5s/%(asctime)s] %(name)s: %(message)s',
@@ -13,7 +15,7 @@ env.read_env()
 
 
 def main():
-    with TelegramClient('test', env("API_ID"), env("API_HASH")) as client:
+    with telegram('test') as client:
         @client.on(events.NewMessage)
         async def my_replier(event):
             await event.reply('🔥')
