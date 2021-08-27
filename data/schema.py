@@ -11,3 +11,23 @@ TARGET_FIELDS = [
     'unread_count',
     'unread_mentions_count'
 ]
+
+POSITIVE_FIELDS = [
+    "file",
+    "source",
+    "date",
+    "photo_id",
+    "reference",
+    "width",
+    "height",
+]
+
+ANCHOR_FIELDS = [
+    "file",
+    "source",
+    "date",
+    "photo_id",
+    "reference",
+    "width",
+    "height",
+]
