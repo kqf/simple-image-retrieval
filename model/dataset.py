@@ -19,8 +19,7 @@ class SimilarityDataset(Dataset):
         image = cv2.imread(str(sample), cv2.COLOR_BGR2RGB)
         label = self.samples[idx]["image"]
 
-        # augmented = self.transform(image=image, mask=mask)
-        # image = augmented['image']
-        # mask = augmented["mask"]
+        if self.transform is not None:
+            return self.transform(image), label
 
         return image, label
