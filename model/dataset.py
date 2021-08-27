@@ -3,8 +3,8 @@ import pathlib
 from torch.utils.data import Dataset
 
 
-class RawDataset(Dataset):
-    def __init__(self, samples,):
+class SimilarityDataset(Dataset):
+    def __init__(self, samples):
         super().__init__()
         self.samples = samples
 
