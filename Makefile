@@ -1,8 +1,10 @@
+message_limit = 100
+
 data/positives.tsv: data/targets.txt data/positives.py
-	python data/positives.py --target $< --output $@ --limit 100
+	python data/positives.py --target $< --output $@ --limit $(message_limit)
 
 data/anchors.tsv: data/explored.tsv data/anchors.py
-	python data/anchors.py --target $< --output $@ --limit 10
+	python data/anchors.py --target $< --output $@ --limit $(message_limit)
 
 data/explored.tsv: sources.csv data/explore.py
 	python data/explore.py --source $< --output $@
