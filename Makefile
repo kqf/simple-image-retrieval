@@ -1,9 +1,9 @@
 message_limit = 100
 
-data/positives.tsv: data/targets.txt data/positives.py
+data/positives/data.tsv: data/targets.txt data/positives.py
 	python data/positives.py --target $< --output $@ --limit $(message_limit)
 
-data/anchors.tsv: data/explored.tsv data/anchors.py
+data/anchors/data.tsv: data/explored.tsv data/anchors.py
 	python data/anchors.py --target $< --output $@ --limit $(message_limit)
 
 data/explored.tsv: sources.csv data/explore.py
