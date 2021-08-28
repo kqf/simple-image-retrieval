@@ -1,4 +1,4 @@
-data/positives.tsv: data/targets.csv data/positives.py
+data/positives.tsv: data/targets.txt data/positives.py
 	python data/positives.py --target $< --output $@ --limit 100
 
 data/anchors.tsv: data/explored.tsv data/anchors.py
