@@ -1,14 +1,14 @@
-data/positives.csv: data/targets.txt data/positives.py
+data/positives.tsv: data/targets.txt data/positives.py
 	python data/positives.py --target $< --output $@ --limit 100
 
-data/data.csv: data/sources.txt data/*.py
+data/anchors.tsv: data/explored.tsv data/anchors.py
 	python data/anchors.py --target $< --output $@ --limit 10
 
-data/sources.txt: titles.txt
-	python data/explore.py --titles titles.txt --output $@
+data/explored.tsv: sources.csv data/explore.py
+	python data/explore.py --source $< --output $@
 
 clean: 
-	rm -rf output.txt
+	rm -rf output.csv
 
 clean-download:
 	rm -rf data/photos

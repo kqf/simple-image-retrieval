@@ -21,10 +21,10 @@ def dump(client, fields):
 
 
 @click.command()
-@click.option("--titles", type=click.Path(exists=True), default="titles.txt")
+@click.option("--source", type=click.Path(exists=True), default="sources.txt")
 @click.option("--output", type=click.Path(exists=False), default="output.txt")
-def main(titles, output):
-    targets = pd.read_csv(titles, names=["title"])
+def main(source, output):
+    targets = pd.read_csv(source, names=["title"])
     logger.info("Processing source %s", targets)
 
     with telegram("test") as client:
