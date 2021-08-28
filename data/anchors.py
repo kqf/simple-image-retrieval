@@ -18,7 +18,7 @@ def candidates(df):
 
 @click.command()
 @click.option("--target", type=cpth(exists=True), default="data/explored.tsv")
-@click.option("--output", type=cpth(exists=False), default="data/anchors.txt")
+@click.option("--output", type=cpth(exists=False), default="data/anchors.tsv")
 @click.option("--images", type=cpth(), default="data/images")
 @click.option("--limit", type=int, default=None)
 def main(target, output, images, limit):

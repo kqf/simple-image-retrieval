@@ -1,7 +1,7 @@
 data/positives.tsv: data/targets.csv data/positives.py
 	python data/positives.py --target $< --output $@ --limit 100
 
-data/anchors.tsv: data/explored.tsv data/*.py
+data/anchors.tsv: data/explored.tsv data/anchors.py
 	python data/anchors.py --target $< --output $@ --limit 10
 
 data/explored.tsv: sources.csv data/explore.py
