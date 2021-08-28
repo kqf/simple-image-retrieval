@@ -13,8 +13,9 @@ logger = logging.getLogger(__name__)
 
 @click.command()
 @click.option("--target", type=cpth(exists=True), default="data/targets.txt")
-@click.option("--output", type=cpth(exists=False), default="data/positive.tsv")
-@click.option("--images", type=cpth(), default="data/images")
+@click.option("--output", type=cpth(exists=False),
+              default="data/positive/data.tsv")
+@click.option("--images", type=cpth(), default="data/images/positive")
 @click.option("--limit", type=int, default=None)
 def main(target, output, images, limit):
     df = pd.read_csv(target, names=["title"])
