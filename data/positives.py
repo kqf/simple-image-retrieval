@@ -6,7 +6,7 @@ import pandas as pd
 from click import Path as cpth
 from pathlib import Path
 
-from data.base import telegram, dump_list
+from data.base import telegram, dump_list, width, height
 
 logger = logging.getLogger(__name__)
 
@@ -44,8 +44,8 @@ def main(target, output, images, limit):
                     "date": message.date,
                     "photo_id": message.photo.id,
                     "reference": message.photo.file_reference,
-                    "width": sizes.w,
-                    "height": sizes.h,
+                    "width": width(sizes),
+                    "height": height(sizes),
                 })
 
 
