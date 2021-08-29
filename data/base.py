@@ -3,6 +3,7 @@ import pandas as pd
 
 from environs import Env
 from telethon.sync import TelegramClient
+from telethon.tl.types import PhotoSize
 from contextlib import contextmanager
 from functools import partial
 
@@ -24,3 +25,15 @@ def dump_list(ofile):
     df = pd.DataFrame(data)
     logger.warning("Dumping the dataframe %s", df)
     df.to_csv(ofile, sep="\t", index=False)
+
+
+def width(size):
+    if not isinstance(size, PhotoSize):
+        return None
+    return size.w
+
+
+def height(size):
+    if not isinstance(size, PhotoSize):
+        return None
+    return size.h
