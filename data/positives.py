@@ -9,6 +9,7 @@ from pathlib import Path
 from data.base import telegram, dump_list, width, height
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 
 @click.command()

@@ -23,7 +23,7 @@ def dump_list(ofile):
     data = []
     yield data
     df = pd.DataFrame(data)
-    logger.warning("Dumping the dataframe %s", df)
+    logger.info("Dumping the dataframe %s", df)
     df.to_csv(ofile, sep="\t", index=False)
 
 
