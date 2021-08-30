@@ -20,7 +20,7 @@ def candidates(df):
 @click.command()
 @click.option("--target", type=cpth(exists=True), default="data/explored.tsv")
 @click.option("--output", type=cpth(exists=False),
-              default="data/anchors/data.tsv")
+              default="data/images/anchors/data.tsv")
 @click.option("--images", type=cpth(), default="data/images/anchors")
 @click.option("--limit", type=int, default=None)
 def main(target, output, images, limit):
