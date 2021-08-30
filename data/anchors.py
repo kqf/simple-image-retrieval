@@ -38,7 +38,9 @@ def main(target, output, images, limit):
                 # filter=InputMessagesFilterimages(), # This doesn't work
                 limit=limit,
             )
-            for message in tqdm.tqdm(messages, total=limit):
+
+            filtered = [m for m in messages if m.photo is not None]
+            for message in tqdm.tqdm(filtered, total=limit):
                 if message.photo is None:
                     continue
 
