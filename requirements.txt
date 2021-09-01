@@ -5,3 +5,4 @@ pandas
 click
 tqdm
 opencv-python
+matplotlib
