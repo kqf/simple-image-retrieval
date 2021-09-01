@@ -1,5 +1,4 @@
 import cv2
-import pandas as pd
 import numpy as np
 
 from pathlib import Path
@@ -8,7 +7,7 @@ from pathlib import Path
 def make_blob(
     x_min=50, y_min=50,
     x_max=90, y_max=90,
-    h=2000, w=2000,
+    h=460, w=460,
     **kwargs
 ):
     Y, X = np.ogrid[:h, :w]
