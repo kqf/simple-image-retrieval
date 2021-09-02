@@ -4,23 +4,15 @@ import numpy as np
 from pathlib import Path
 
 
-def make_blob(
-    x_min=50, y_min=50,
-    x_max=90, y_max=90,
-    h=460, w=460,
-    **kwargs
-):
+def make_blob(x=0.5, y=0.5, a=0.5, b=0.5, h=460, w=460, **kwargs):
     Y, X = np.ogrid[:h, :w]
 
-    w = (x_max - x_min)
-    h = (y_max - y_min)
-
-    cx = x_min + w / 2.
-    cy = y_min + h / 2.
+    cx = h * x
+    cy = w * y
 
     xx = (X[..., None] - cx)
     yy = (Y[..., None] - cy)
-    dists = np.sqrt((xx / w) ** 2 + (yy / h) ** 2)
+    dists = np.sqrt((xx / (a * w)) ** 2 + (yy / (b * h)) ** 2)
 
     mask = dists <= 1. / 2.
     return mask.sum(axis=-1).astype(np.uint8)
