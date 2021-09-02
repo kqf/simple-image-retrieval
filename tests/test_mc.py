@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 
 
 def test_blob():
-    blob = make_blob()
-    image = blob2image(blob)
+    blob1 = make_blob()
+    blob2 = make_blob(0.8, 0.8, 0.08, 0.1)
+    image = blob2image(blob1 + blob2)
     plt.imshow(image)
     plt.show()
