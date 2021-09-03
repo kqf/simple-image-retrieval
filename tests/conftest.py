@@ -2,10 +2,12 @@ import cv2
 
 import pytest
 import tempfile
+import pandas as pd
 
 from pathlib import Path
 
 from model.mc import make_blob, blob2image
+from data.base import dump_list
 
 
 @pytest.fixture
@@ -23,13 +25,17 @@ def write(img, imgpath):
 def fake_dataset(size=256, nfiles=5):
     with tempfile.TemporaryDirectory() as dirname:
         path = Path(dirname)
-        for i in range(nfiles):
-            circle = make_blob(size, size)
-            circle = blob2image(circle)
-            write(circle, path / 'circles' / f"{i}.png")
+        with dump_list(path / "data.tsv") as files:
+            for i in range(nfiles):
+                circle = make_blob(size, size)
+                circle = blob2image(circle)
+                circle_path = path / 'circles' / f"{i}.png"
+                write(circle, circle_path)
+                files.append({"image": circle_path, 'label': 0})
 
-            ellipsis = make_blob(size, size)
-            ellipsis = blob2image(ellipsis)
-            write(ellipsis, path / 'ellipses' / f"{i}.png")
-
+                ellipsis = make_blob(size, size)
+                ellipsis = blob2image(ellipsis)
+                ellipsis_path = path / 'ellipses' / f"{i}.png"
+                write(ellipsis, path / 'ellipses' / f"{i}.png")
+                files.append({"image": ellipsis_path, 'label': 1})
         yield path
