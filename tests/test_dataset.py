@@ -1,6 +1,8 @@
-from model.dataset import Dataset
+import pandas as pd
+from model.dataset import SimilarityDataset
 
 
 def test_reads(fake_dataset):
-    dataset = Dataset(fake_dataset)
+    df = pd.read_table(fake_dataset / "data.tsv")
+    dataset = SimilarityDataset(df.loc)
     print(dataset)
