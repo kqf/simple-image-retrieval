@@ -3,6 +3,6 @@ from model.dataset import SimilarityDataset
 
 
 def test_reads(fake_dataset):
-    df = pd.read_table(fake_dataset / "data.tsv")
+    df = pd.read_table(fake_dataset)
     dataset = SimilarityDataset(df.loc)
     print(dataset)
