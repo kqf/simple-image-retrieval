@@ -21,10 +21,11 @@ def write(img, imgpath):
 
 
 @pytest.fixture
-def fake_dataset(size=256, nfiles=5):
+def fake_dataset(size=256, nfiles=5, fname="data.tsv"):
     with tempfile.TemporaryDirectory() as dirname:
         path = Path(dirname)
-        with dump_list(path / "data.tsv") as files:
+        dataset = path / fname
+        with dump_list(dataset) as files:
             for i in range(nfiles):
                 circle = make_blob(size, size)
                 circle = blob2image(circle)
@@ -37,4 +38,4 @@ def fake_dataset(size=256, nfiles=5):
                 ellipsis_path = path / 'ellipses' / f"{i}.png"
                 write(ellipsis, ellipsis_path)
                 files.append({"image": ellipsis_path, 'label': 1})
-        yield path
+        yield dataset
