@@ -4,7 +4,6 @@ from model.dataset import SimilarityDataset
 
 def test_reads(fake_dataset):
     df = pd.read_table(fake_dataset)
-    dataset = SimilarityDataset(df.loc)
-    for example in dataset:
-        print("This is an example")
-        print(example)
+    dataset = SimilarityDataset(df.iloc)
+    for i, (image, label) in enumerate(dataset):
+        print(image.shape, label)
