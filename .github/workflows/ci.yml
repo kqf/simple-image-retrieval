@@ -34,8 +34,8 @@ jobs:
       run: |
         pytest
       env:
-        API_ID: ${{ secrets.API_ID }}
-        API_HASH: ${{ secrets.API_HASH }}
+        API_ID: "dummy value don't use it for tests"
+        API_HASH: "dummy value don't use it for tests"
 
     - name: Lint
       run: |
