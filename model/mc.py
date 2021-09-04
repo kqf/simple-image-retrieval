@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 
-def make_blob(x=0.5, y=0.5, a=0.5, b=0.5, h=460, w=460, **kwargs):
+def make_blob(x=0.5, y=0.5, a=0.5, b=0.5, h=480, w=640, **kwargs):
     Y, X = np.ogrid[:h, :w]
 
     cx = h * x
