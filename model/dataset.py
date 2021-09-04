@@ -7,7 +7,7 @@ class SimilarityDataset(Dataset):
     def __init__(self, samples, transofrm=None):
         super().__init__()
         self.samples = samples
-        self.transorm = transofrm
+        self.transform = transofrm
 
     def __len__(self):
         return len(self.samples)
