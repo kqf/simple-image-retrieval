@@ -33,6 +33,9 @@ jobs:
     - name: Tests
       run: |
         pytest
+      env:
+        API_ID: "dummy value don't use it for tests"
+        API_HASH: "dummy value don't use it for tests"
 
     - name: Lint
       run: |
