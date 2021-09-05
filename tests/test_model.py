@@ -1,6 +1,6 @@
-from model.model import model
+from model.model import classifier
 
 
 def test_builds():
-    model()
-    pass
+    clf = classifier()
+    print(clf)
