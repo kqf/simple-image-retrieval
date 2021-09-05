@@ -16,4 +16,6 @@ def batch(batch_size, channels=3, width=480, height=640):
 def test_builds(batch, batch_size):
     clf = classifier()
     predictions = clf(batch)
-    print(predictions.shape)
+
+    # For now it's binary classification problem
+    assert predictions.shape == (batch_size, 2)
