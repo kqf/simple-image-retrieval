@@ -11,7 +11,7 @@ class SimilarityDataset(Dataset):
         self.transform = transofrm
 
     def __len__(self):
-        return len(self.samples)
+        return self.samples[-1].name
 
     def __getitem__(self, idx):
         sample = pathlib.Path(self.samples[idx]["image"])
