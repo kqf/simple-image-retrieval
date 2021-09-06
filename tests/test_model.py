@@ -1,21 +1,10 @@
-import torch
-import pytest
-from model.model import classifier
+import pandas as pd
+from model.model import build_model
+from model.dataset import SimilarityDataset
 
 
-@pytest.fixture
-def batch_size():
-    return 4
-
-
-@pytest.fixture
-def batch(batch_size, channels=3, width=480, height=640):
-    return torch.ones((batch_size, channels, width, height))
-
-
-def test_builds(batch, batch_size):
-    clf = classifier()
-    predictions = clf(batch)
-
-    # For now it's binary classification problem
-    assert predictions.shape == (batch_size, 2)
+def test_model(fake_dataset):
+    df = pd.read_table(fake_dataset)
+    dataset = SimilarityDataset(df.iloc)
+    model = build_model()
+    model.fit(dataset)
