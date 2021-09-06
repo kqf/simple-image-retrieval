@@ -7,4 +7,4 @@ def test_model(fake_dataset):
     df = pd.read_table(fake_dataset)
     dataset = SimilarityDataset(df.iloc)
     model = build_model()
-    model.fit(dataset)
+    model.fit(dataset, None)
