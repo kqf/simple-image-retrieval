@@ -1,6 +1,6 @@
 import torch
 import pytest
-from model.model import classifier
+from model.model import Classifier
 
 
 @pytest.fixture
@@ -14,7 +14,7 @@ def batch(batch_size, channels=3, width=480, height=640):
 
 
 def test_classifier(batch, batch_size):
-    clf = classifier()
+    clf = Classifier()
     predictions = clf(batch)
 
     # For now it's binary classification problem
