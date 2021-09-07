@@ -22,6 +22,10 @@ def blob2image(blob, channels=3, epsilon=0.1):
     h, w = blob.shape
 
     extended = blob[..., None]
+
+    # Add the channel dimension
+    extended = extended[:, None].repeat(1, 3, 1, 1)
+
     return extended + 255
 
     # Add a small term to add noise to the empty regions
