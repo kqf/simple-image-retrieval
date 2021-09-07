@@ -10,8 +10,8 @@ class Classifier(torch.nn.Module):
         backbone.fc = torch.nn.Linear(backbone.fc.in_features, 2)
         self.backbone = backbone
 
-    def forward(self, x):
-        x = x[:, None].repeat(1, 3, 1, 1)
+    def forward(self, batch):
+        x = batch[:, None].repeat(1, 3, 1, 1)
         return self.backbone(x)
 
 
