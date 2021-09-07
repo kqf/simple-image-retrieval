@@ -11,6 +11,7 @@ class Classifier(torch.nn.Module):
         self.backbone = backbone
 
     def forward(self, x):
+        x = x[:, None].repeat(1, 3, 1, 1)
         return self.backbone(x)
 
 
