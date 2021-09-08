@@ -21,7 +21,11 @@ def make_blob(x=0.5, y=0.5, a=0.5, b=0.5, h=480, w=640, **kwargs):
 def blob2image(blob, channels=3, epsilon=0.1):
     h, w = blob.shape
 
-    extended = blob[..., None]
+    extended = blob[None, ...]
+
+    # Add the channel dimension
+    extended = extended.repeat(3, axis=0)
+
     return extended + 255
 
     # Add a small term to add noise to the empty regions
