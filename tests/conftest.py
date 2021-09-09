@@ -17,7 +17,8 @@ def size():
 def write(img, imgpath):
     # _, png = cv2.imencode(".png", img)
     imgpath.parent.mkdir(parents=True, exist_ok=True)
-    cv2.imwrite(str(imgpath), cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
+    img_ = cv2.cvtColor(img.transpose(1, 2, 0), cv2.COLOR_RGB2BGR)
+    cv2.imwrite(str(imgpath), img_)
 
 
 @pytest.fixture
