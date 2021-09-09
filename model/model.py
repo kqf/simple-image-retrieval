@@ -11,7 +11,7 @@ class Classifier(torch.nn.Module):
         self.backbone = backbone
 
     def forward(self, x):
-        return self.backbone(x)
+        return self.backbone(x.float())
 
 
 def build_model(lr=1e-4):
