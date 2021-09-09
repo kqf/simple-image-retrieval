@@ -18,7 +18,8 @@ class SimilarityDataset(Dataset):
 
         # By default OpenCV uses BGR color space for color images,
         # so we need to convert the image to RGB color space.
-        image = cv2.imread(str(sample), cv2.COLOR_BGR2RGB)
+        image_channels_last = cv2.imread(str(sample), cv2.COLOR_BGR2RGB)
+        image = image_channels_last.transpose(2, 0, 1)
         label = self.samples[idx]["image"]
 
         if self.transform is not None:
