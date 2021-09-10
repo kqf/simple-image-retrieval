@@ -21,6 +21,16 @@ def write(img, imgpath):
     cv2.imwrite(str(imgpath), img_)
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--max-epochs",
+        action="store",
+        default=2,
+        type=int,
+        help="Number of epochs to run the tests",
+    )
+
+
 @pytest.fixture
 def fake_dataset(size=256, nfiles=5, fname="data.tsv"):
     with tempfile.TemporaryDirectory() as dirname:
