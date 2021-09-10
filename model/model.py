@@ -23,7 +23,7 @@ def build_model(lr=1e-3, max_epochs=2):
         optimizer__lr=lr,
         train_split=None,
         max_epochs=max_epochs,
-        batch_size=256,
+        batch_size=8,
         iterator_train__shuffle=True,
         iterator_valid__shuffle=False,
         device=device,
