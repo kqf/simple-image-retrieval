@@ -14,7 +14,7 @@ class Classifier(torch.nn.Module):
         return self.backbone(x.float())
 
 
-def build_model(lr=1e-4):
+def build_model(lr=1e-4, max_epochs=2):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = skorch.NeuralNetClassifier(
         module=Classifier,
@@ -22,7 +22,7 @@ def build_model(lr=1e-4):
         optimizer=torch.optim.Adam,
         optimizer__lr=lr,
         train_split=None,
-        max_epochs=2,
+        max_epochs=max_epochs,
         batch_size=256,
         iterator_train__shuffle=True,
         iterator_valid__shuffle=False,

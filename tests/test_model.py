@@ -13,5 +13,5 @@ def test_model(fake_dataset, max_epochs):
     print(max_epochs)
     df = pd.read_table(fake_dataset)
     dataset = SimilarityDataset(df.iloc)
-    model = build_model()
+    model = build_model(max_epochs=max_epochs)
     model.fit(dataset, None)
