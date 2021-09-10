@@ -1,12 +1,24 @@
+import torch
 import cv2
 
+import random
 import pytest
 import tempfile
 
 from pathlib import Path
+import numpy as np
 
 from model.mc import make_blob, blob2image
 from data.base import dump_list
+
+
+@pytest.fixture
+def deterministic(seed=137):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.backends.cudnn.deterministic = True
 
 
 @pytest.fixture

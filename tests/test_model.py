@@ -9,8 +9,7 @@ def max_epochs(request):
     return request.config.getoption("--max-epochs")
 
 
-def test_model(fake_dataset, max_epochs):
-    print(max_epochs)
+def test_model(fake_dataset, max_epochs, deterministic):
     df = pd.read_table(fake_dataset)
     dataset = SimilarityDataset(df.iloc)
     model = build_model(max_epochs=max_epochs)
