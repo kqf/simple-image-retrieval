@@ -20,7 +20,7 @@ class SimilarityDataset(Dataset):
         # so we need to convert the image to RGB color space.
         image_channels_last = cv2.imread(str(sample), cv2.COLOR_BGR2RGB)
         image = image_channels_last.transpose(2, 0, 1)
-        label = self.samples[idx]["image"]
+        label = self.samples[idx]["label"]
 
         if self.transform is not None:
             return self.transform(image), label
