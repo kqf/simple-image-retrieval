@@ -30,6 +30,7 @@ def pytest_addoption(parser):
         help="Number of epochs to run the tests",
     )
 
+
 @pytest.fixture
 def fake_dataset(size=256, nfiles=5, fname="data.tsv"):
     with tempfile.TemporaryDirectory() as dirname:
