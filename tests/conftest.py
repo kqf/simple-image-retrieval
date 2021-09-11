@@ -44,19 +44,20 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture
-def fake_dataset(size=256, nfiles=5, fname="data.tsv"):
+def fake_dataset(size=256, nfiles=5, fname="data.tsv", alpha=0.4):
     with tempfile.TemporaryDirectory() as dirname:
         path = Path(dirname)
         dataset = path / fname
         with dump_list(dataset) as files:
             for i in range(nfiles):
-                circle = make_blob(size, size)
+                # Circle with parameters
+                circle = make_blob(0.5, 0.5, 0.5, 0.5)
                 circle = blob2image(circle)
                 circle_path = path / 'circles' / f"{i}.png"
                 write(circle, circle_path)
                 files.append({"image": circle_path, 'label': 0})
 
-                ellipsis = make_blob(size, size)
+                ellipsis = make_blob(0.5, 0.5, 0.5 - alpha, 0.5 + alpha)
                 ellipsis = blob2image(ellipsis)
                 ellipsis_path = path / 'ellipses' / f"{i}.png"
                 write(ellipsis, ellipsis_path)
