@@ -2,6 +2,8 @@ import skorch
 import torch
 import torchvision
 
+from model.loss import RetrievalLoss
+
 
 class Classifier(torch.nn.Module):
     def __init__(self):
@@ -18,7 +20,7 @@ def build_model(lr=1e-3, max_epochs=2):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = skorch.NeuralNetClassifier(
         module=Classifier,
-        criterion=torch.nn.CrossEntropyLoss,
+        criterion=RetrievalLoss,
         optimizer=torch.optim.Adam,
         optimizer__lr=lr,
         train_split=None,
