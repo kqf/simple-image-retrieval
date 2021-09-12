@@ -22,6 +22,7 @@ class RetrievalLoss(torch.nn.Module):
     def forward(self, queries, targets):
         with torch.no_grad():
             distances = self.sim(queries[None, :], queries[:, None])
+            distances.fill_diagonal_(float('-inf'))
 
             # exploit the broadcasting
             same_idx = targets.view(-1, 1) == targets.view(1, -1)

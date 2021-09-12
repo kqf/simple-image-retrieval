@@ -16,7 +16,7 @@ class Classifier(torch.nn.Module):
         return self.backbone(x.float())
 
 
-def build_model(lr=1e-3, max_epochs=2):
+def build_model(lr=1e-4, max_epochs=2):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = skorch.NeuralNetClassifier(
         module=Classifier,
