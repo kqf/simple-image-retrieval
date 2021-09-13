@@ -26,13 +26,11 @@ def blob2image(blob, channels=3, epsilon=0.1):
     # Add the channel dimension
     extended = extended.repeat(3, axis=0)
 
-    return extended + 255
-
     # Add a small term to add noise to the empty regions
-    # noise = np.random.poisson(extended + epsilon, size=(h, w, channels))
+    noise = np.random.poisson(extended + epsilon, size=(channels, h, w))
 
     # Convet to image scale
-    # return (extended + noise * 255).astype(np.uint8)
+    return (extended + noise * 255).astype(np.uint8)
 
 
 def generate_to_directory(annotations, dirname, image_col="image_id"):
