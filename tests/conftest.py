@@ -1,5 +1,4 @@
 import torch
-import cv2
 
 import random
 import pytest
@@ -9,6 +8,7 @@ from pathlib import Path
 import numpy as np
 
 from model.mc import make_blob, blob2image
+from model.cv import write
 from data.base import dump_list
 
 
@@ -24,13 +24,6 @@ def deterministic(seed=137):
 @pytest.fixture
 def size():
     return 256
-
-
-def write(img, imgpath):
-    # _, png = cv2.imencode(".png", img)
-    imgpath.parent.mkdir(parents=True, exist_ok=True)
-    img_ = cv2.cvtColor(img.transpose(1, 2, 0), cv2.COLOR_RGB2BGR)
-    cv2.imwrite(str(imgpath), img_)
 
 
 def pytest_addoption(parser):
