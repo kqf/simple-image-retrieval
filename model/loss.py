@@ -15,6 +15,8 @@ def dist2(a, b):
 
 def mask_distances(distances, mask, fill_value=float("-inf")):
     masked_distances = distances * mask
+
+    # Never take an example as it's own positive / negative
     masked_distances.fill_diagonal_(fill_value)
     return masked_distances
 
@@ -34,7 +36,9 @@ class RetrievalLoss(torch.nn.Module):
             pos_idx = mask_distances(distances, same_idx).argmax(-1)
             pos = queries[pos_idx]
 
-            neg_idx = (-mask_distances(distances, ~same_idx)).argmin(-1)
+            neg_distances = mask_distances(
+                distances, 1. / ~same_idx, float("inf"))
+            neg_idx = neg_distances.argmin(-1)
             neg = queries[neg_idx]
 
         loss = self.delta - l2(queries - pos) + l2(queries - neg)

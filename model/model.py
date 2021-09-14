@@ -22,7 +22,7 @@ def build_model(lr=1e-4, max_epochs=2):
         module=Classifier,
         module__n_outputs=100,
         criterion=RetrievalLoss,
-        criterion__delta=2.0,
+        criterion__delta=1.0,
         optimizer=torch.optim.Adam,
         optimizer__lr=lr,
         train_split=None,
