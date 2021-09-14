@@ -15,9 +15,7 @@ def batch(batch_size, channels=3, width=480, height=640):
 
 def init_with(f):
     def wrap(m):
-        if not isinstance(m, torch.nn.Conv2d):
-            f(m.weight.data)
-            f(m.bias.data)
+        if not isinstance(m, torch.nn.parameter.Parameter):
             return
         f(m)
     return wrap
