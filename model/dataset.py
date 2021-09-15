@@ -25,4 +25,5 @@ class SimilarityDataset(Dataset):
             transformed = self.transform(image=image)["image"]
             return transformed.numpy(), label
 
+
         return image, label
