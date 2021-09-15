@@ -23,6 +23,6 @@ class SimilarityDataset(Dataset):
         if self.transform is not None:
             image = image.transpose(1, 2, 0)
             transformed = self.transform(image=image)["image"]
-            return transformed, label
+            return transformed.numpy(), label
 
         return image, label
