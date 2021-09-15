@@ -28,11 +28,11 @@ def transform(train=True, mean=None, std=None):
             rotate_limit=15,
             p=0.9,
             border_mode=cv2.BORDER_REFLECT),
-        alb.OneOf([
-            alb.OpticalDistortion(p=0.3),
-            alb.GridDistortion(p=.1),
-            alb.IAAPiecewiseAffine(p=0.3),
-        ], p=0.3),
+        # alb.OneOf([
+        #     alb.OpticalDistortion(p=0.3),
+        #     alb.GridDistortion(p=.1),
+            # alb.IAAPiecewiseAffine(p=0.3),
+        # ], p=0.3),
         alb.OneOf([
             alb.HueSaturationValue(10, 15, 10),
             alb.CLAHE(clip_limit=2),
