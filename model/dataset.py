@@ -21,6 +21,6 @@ class SimilarityDataset(Dataset):
         label = self.samples[idx]["label"]
 
         if self.transform is not None:
-            return self.transform(image), label
+            return self.transform(image=image)["image"], label
 
         return image, label

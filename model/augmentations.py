@@ -1,10 +1,12 @@
 import cv2
+import numpy as np
 import albumentations as alb
+
 from albumentations.pytorch import ToTensorV2
 
 
-_mean = [0.654599, 0.483866, 0.694284]
-_std = [0.151680, 0.235841, 0.131461]
+_mean = np.array([0.654599, 0.483866, 0.694284])[:, None, None]
+_std = np.array([0.151680, 0.235841, 0.131461])[:, None, None]
 
 
 def transform(train=True, mean=None, std=None):
