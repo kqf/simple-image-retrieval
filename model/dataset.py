@@ -2,10 +2,11 @@ import pathlib
 
 from torch.utils.data import Dataset
 from model.cv import read
+from model.augmentations import transform
 
 
 class SimilarityDataset(Dataset):
-    def __init__(self, samples, transofrm=None):
+    def __init__(self, samples, transofrm=transform(train=False)):
         super().__init__()
         self.samples = samples
         self.transform = transofrm
@@ -20,6 +21,8 @@ class SimilarityDataset(Dataset):
         label = self.samples[idx]["label"]
 
         if self.transform is not None:
-            return self.transform(image), label
+            image = image.transpose(1, 2, 0)
+            transformed = self.transform(image=image)["image"]
+            return transformed, label
 
         return image, label
