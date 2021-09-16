@@ -18,7 +18,7 @@ class Classifier(torch.nn.Module):
 
 def build_model(n_outputs=100, lr=1e-4, max_epochs=2):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = skorch.NeuralNetClassifier(
+    model = skorch.NeuralNet(
         module=Classifier,
         module__n_outputs=n_outputs,
         criterion=RetrievalLoss,
