@@ -15,3 +15,4 @@ def test_model(fake_dataset, max_epochs, deterministic):
     dataset = SimilarityDataset(df.iloc, transform=transform(train=True))
     model = build_model(max_epochs=max_epochs)
     model.fit(dataset, None)
+    print(model.predict(dataset))
