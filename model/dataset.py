@@ -6,10 +6,10 @@ from model.augmentations import transform
 
 
 class SimilarityDataset(Dataset):
-    def __init__(self, samples, transofrm=transform(train=False)):
+    def __init__(self, samples, transform=transform(train=False)):
         super().__init__()
         self.samples = samples
-        self.transform = transofrm
+        self.transform = transform
 
     def __len__(self):
         return self.samples[-1].name
