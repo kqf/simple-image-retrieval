@@ -21,7 +21,7 @@ def transform(train=True, mean=None, std=None):
     return alb.Compose([
         alb.HorizontalFlip(),
         alb.VerticalFlip(),
-        alb.RandomRotate90(),
+        # alb.RandomRotate90(),
         alb.ShiftScaleRotate(
             shift_limit=0.0625,
             scale_limit=0.2,
