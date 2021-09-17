@@ -54,5 +54,10 @@ def fake_dataset(size=256, nfiles=5, fname="data.tsv", alpha=0.4):
                 ellipsis = blob2image(ellipsis)
                 ellipsis_path = path / 'ellipses' / f"{i}.png"
                 write(ellipsis, ellipsis_path)
-                files.append({"image": ellipsis_path, 'label': 1})
+                files.append({
+                    "image": ellipsis_path,
+                    'label': 1,
+                    "distance": alpha,
+                })
+
         yield dataset
