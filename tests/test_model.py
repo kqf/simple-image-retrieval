@@ -17,5 +17,4 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     model.fit(dataset, None)
     vectors = model.predict(dataset)
 
-    # TODO: Check why is it len(df) - 1?
-    assert vectors.shape == (len(df) - 1, n_dims)
+    assert vectors.shape == (len(df), n_dims)
