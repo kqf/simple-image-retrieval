@@ -4,6 +4,7 @@ from model.model import build_model
 from model.dataset import SimilarityDataset
 from model.augmentations import transform
 from model.search import linear
+from irmetrics.topk import recall
 
 
 @pytest.fixture
@@ -27,3 +28,5 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
         lambda preds: [idx2label[i] for i in preds]
     )
     print(sum(df["predictions"].str[0] == df["label"]))
+    print(recall(df["label"], df["predictions"]))
+
