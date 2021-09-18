@@ -38,4 +38,3 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
 
     print(f"The recalls {rc}")
     print(f"The mean recall {rc.mean()}")
-    import ipdb; ipdb.set_trace(); import IPython; IPython.embed()  # noqa
