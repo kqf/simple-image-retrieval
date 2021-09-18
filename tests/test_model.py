@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 import pandas as pd
 from model.model import build_model
 from model.dataset import SimilarityDataset
@@ -24,9 +25,17 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     df["predictions"] = list(linear(dataset, dataset, model))
     idx2label = df["label"].to_dict()
 
-    df["predictions"] = df["predictions"].apply(
+    df["pred_label"] = df["predictions"].apply(
         lambda preds: [idx2label[i] for i in preds]
     )
-    print(sum(df["predictions"].str[0] == df["label"]))
-    print(recall(df["label"], df["predictions"]))
+    print(sum(df["pred_label"].str[0] == df["label"]))
 
+    rc = recall(
+        df["label"].values.reshape(-1, 1).astype(int),
+        np.stack(df["pred_label"].values).astype(int),
+        k=1
+    )
+
+    print(f"The recalls {rc}")
+    print(f"The mean recall {rc.mean()}")
+    import ipdb; ipdb.set_trace(); import IPython; IPython.embed()  # noqa
