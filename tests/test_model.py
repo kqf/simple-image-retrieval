@@ -3,6 +3,7 @@ import pandas as pd
 from model.model import build_model
 from model.dataset import SimilarityDataset
 from model.augmentations import transform
+from model.search import linear
 
 
 @pytest.fixture
@@ -18,3 +19,11 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     vectors = model.predict(dataset)
 
     assert vectors.shape == (len(df), n_dims)
+
+    df["predictions"] = list(linear(dataset, dataset, model))
+    idx2label = df["label"].to_dict()
+
+    df["predictions"] = df["predictions"].apply(
+        lambda preds: [idx2label[i] for i in preds]
+    )
+    print(sum(df["predictions"].str[0] == df["label"]))
