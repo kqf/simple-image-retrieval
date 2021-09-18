@@ -10,3 +10,4 @@ click
 tqdm
 opencv-python
 matplotlib
+ir-metrics
