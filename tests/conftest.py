@@ -41,10 +41,9 @@ def fake_dataset(size=256, nfiles=10, fname="data.tsv", max_alpha=0.4):
     with tempfile.TemporaryDirectory() as dirname:
         path = Path(dirname)
         dataset = path / fname
-        lengths = np.arange(0, max_alpha, nfiles)
+        lengths = np.linspace(0, max_alpha, nfiles)
         with dump_list(dataset) as files:
             for i, alpha in enumerate(lengths):
-                # Circle with parameters
                 example = make_blob(0.5, 0.5, 0.5 - alpha, 0.5 + alpha)
                 image = blob2image(example)
                 example_path = path / f"{i}.png"
