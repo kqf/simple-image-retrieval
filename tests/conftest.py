@@ -51,7 +51,7 @@ def fake_dataset(size=256, nfiles=10, fname="data.tsv", max_alpha=0.4):
                 write(image, example_path)
                 files.append({
                     "image": example_path,
-                    'label': 1,
+                    'label': alpha > max_alpha / 2.,
                     "distance": alpha,
                 })
 
