@@ -3,9 +3,9 @@ import torch
 import random
 import pytest
 import tempfile
+import numpy as np
 
 from pathlib import Path
-import numpy as np
 
 from model.mc import make_blob, blob2image
 from model.cv import write
@@ -37,25 +37,20 @@ def pytest_addoption(parser):
 
 
 @pytest.fixture
-def fake_dataset(size=256, nfiles=5, fname="data.tsv", alpha=0.4):
+def fake_dataset(size=256, nfiles=10, fname="data.tsv", max_alpha=0.4):
     with tempfile.TemporaryDirectory() as dirname:
         path = Path(dirname)
         dataset = path / fname
+        lengths = np.arange(0, max_alpha, nfiles)
         with dump_list(dataset) as files:
-            for i in range(nfiles):
+            for i, alpha in enumerate(lengths):
                 # Circle with parameters
-                circle = make_blob(0.5, 0.5, 0.5, 0.5)
-                circle = blob2image(circle)
-                circle_path = path / 'circles' / f"{i}.png"
-                write(circle, circle_path)
-                files.append({"image": circle_path, 'label': 0})
-
-                ellipsis = make_blob(0.5, 0.5, 0.5 - alpha, 0.5 + alpha)
-                ellipsis = blob2image(ellipsis)
-                ellipsis_path = path / 'ellipses' / f"{i}.png"
-                write(ellipsis, ellipsis_path)
+                example = make_blob(0.5, 0.5, 0.5 - alpha, 0.5 + alpha)
+                image = blob2image(example)
+                example_path = path / f"{i}.png"
+                write(image, example_path)
                 files.append({
-                    "image": ellipsis_path,
+                    "image": example_path,
                     'label': 1,
                     "distance": alpha,
                 })
