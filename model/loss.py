@@ -1,14 +1,6 @@
 import torch
 
 
-def l2(a):
-    return (a ** 2).sum(-1).view(-1, 1)
-
-
-def dist(a, b):
-    return -2 * a @ b.T + l2(a) + l2(b)
-
-
 def dist2(a, b):
     return torch.sum((a - b) ** 2, dim=-1)
 
@@ -41,5 +33,5 @@ class RetrievalLoss(torch.nn.Module):
             neg_idx = neg_distances.argmin(-1)
             neg = queries[neg_idx]
 
-        loss = self.delta - l2(queries - pos) + l2(queries - neg)
+        loss = self.delta - self.dist(queries, pos) + self.dist(queries, neg)
         return torch.nn.functional.relu(loss).mean()
