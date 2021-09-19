@@ -6,7 +6,7 @@ def l2(a, b):
 
 
 def ip(a, b):
-    return a @ b.T
+    return np.sum(a * b, -1)
 
 
 def linear(query, base, model, distance=l2, k=5):
