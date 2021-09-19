@@ -6,8 +6,7 @@ def l2(a, b):
 
 
 def ip(a, b):
-    a_, b_ = a.squeeze(), b.squeeze()
-    return a_ @ b_.T
+    return torch.sum(a * b, dim=-1)
 
 
 def mask_distances(distances, mask, fill_value=float("-inf")):

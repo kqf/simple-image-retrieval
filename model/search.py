@@ -5,6 +5,10 @@ def l2(a, b):
     return np.sum((a - b) ** 2, -1)
 
 
+def ip(a, b):
+    return np.sum(a * b, -1)
+
+
 def linear(query, base, model, distance=l2, k=5):
     base_ = model.predict(base)
     query_ = model.predict(query)
