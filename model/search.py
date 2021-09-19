@@ -16,5 +16,6 @@ def linear(query, base, model, distance=l2, k=5):
     # query_[n_query, n], base_[n_base, n]
     distances = distance(query_[:, None], base_)
 
+
     # Take top k vectors as answers
     return (np.argsort(distances, -1))[..., :k]
