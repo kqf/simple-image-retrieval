@@ -1,8 +1,13 @@
 import torch
 
 
-def dist2(a, b):
+def l2(a, b):
     return torch.sum((a - b) ** 2, dim=-1)
+
+
+def ip(a, b):
+    a_, b_ = a.squeeze(), b.squeeze()
+    return a_ @ b_.T
 
 
 def mask_distances(distances, mask, fill_value=float("-inf")):
@@ -14,7 +19,7 @@ def mask_distances(distances, mask, fill_value=float("-inf")):
 
 
 class RetrievalLoss(torch.nn.Module):
-    def __init__(self, sim=dist2, delta=1.0):
+    def __init__(self, sim=l2, delta=1.0):
         super().__init__()
         self.delta = delta
         self.sim = sim
