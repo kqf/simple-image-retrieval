@@ -5,6 +5,7 @@ from model.model import build_model
 from model.dataset import SimilarityDataset
 from model.augmentations import transform
 from model.search import approximate
+from model.retriever import ImageFinder
 from irmetrics.topk import recall
 
 
@@ -19,6 +20,9 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     model = build_model(n_outputs=n_dims, max_epochs=max_epochs)
     model.fit(dataset, None)
     vectors = model.predict(dataset)
+
+    finder = ImageFinder(model, dataset, df["label"].to_dict())
+    print(finder.search(dataset, k=3))
 
     assert vectors.shape == (len(df), n_dims)
 
