@@ -23,6 +23,7 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     assert vectors.shape == (len(df), n_dims)
 
     df["predictions"] = list(approximate(dataset, dataset, model))
+
     idx2label = df["label"].to_dict()
 
     df["pred_label"] = df["predictions"].apply(
