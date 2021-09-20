@@ -11,3 +11,4 @@ tqdm
 opencv-python
 matplotlib
 ir-metrics
+faiss-cpu
