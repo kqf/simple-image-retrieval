@@ -1,11 +1,13 @@
 import pytest
 import numpy as np
 import pandas as pd
+
+from irmetrics.topk import recall
+
 from model.model import build_model
 from model.dataset import SimilarityDataset
 from model.augmentations import transform
-from model.retriever import ImageFinder
-from irmetrics.topk import recall
+from model.search import ImageFinder
 
 
 @pytest.fixture
