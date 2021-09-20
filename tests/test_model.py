@@ -4,7 +4,6 @@ import pandas as pd
 from model.model import build_model
 from model.dataset import SimilarityDataset
 from model.augmentations import transform
-from model.search import approximate
 from model.retriever import ImageFinder
 from irmetrics.topk import recall
 
@@ -19,25 +18,14 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     dataset = SimilarityDataset(df.iloc, transform=transform(train=True))
     model = build_model(n_outputs=n_dims, max_epochs=max_epochs)
     model.fit(dataset, None)
-    vectors = model.predict(dataset)
+    assert model.predict(dataset).shape == (len(df), n_dims)
 
     finder = ImageFinder(model, dataset, df["label"].to_dict())
-    print(finder.search(dataset, k=3))
-
-    assert vectors.shape == (len(df), n_dims)
-
-    df["predictions"] = list(approximate(dataset, dataset, model))
-
-    idx2label = df["label"].to_dict()
-
-    df["pred_label"] = df["predictions"].apply(
-        lambda preds: [idx2label[i] for i in preds]
-    )
-    print(sum(df["pred_label"].str[0] == df["label"]))
+    df["predicted_label"] = finder.search(dataset, k=3)
 
     rc = recall(
         df["label"].values.reshape(-1, 1).astype(int),
-        np.stack(df["pred_label"].values).astype(int),
+        np.stack(df["predicted_label"].values).astype(int),
         k=1
     )
 
