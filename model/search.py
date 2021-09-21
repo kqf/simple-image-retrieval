@@ -13,5 +13,5 @@ class ImageFinder:
     def search(self, query, k):
         query_ = self.model.predict(query)
         _, indices = self.index.search(query_, k)
-        outputs = [self.labels[i] for preds in indices for i in preds]
+        outputs = [[self.labels[i] for i in preds] for preds in indices]
         return outputs
