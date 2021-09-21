@@ -2,7 +2,7 @@ import faiss
 
 
 class ImageFinder:
-    def __init__(self, model, base, labels, index):
+    def __init__(self, model, base, labels):
         self.model = model
         base_ = model.predict(base)
         index = faiss.IndexFlatL2(base_.shape[-1])
