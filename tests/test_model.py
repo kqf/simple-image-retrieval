@@ -21,11 +21,9 @@ def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     model = build_model(n_outputs=n_dims, max_epochs=max_epochs)
     model.fit(dataset, None)
     assert model.predict(dataset).shape == (len(df), n_dims)
-    return
 
     finder = ImageFinder(model, dataset, df["label"].to_dict())
     df["predicted_label"] = finder.search(dataset, k=3)
-
     rc = recall(
         df["label"].values.reshape(-1, 1).astype(int),
         np.stack(df["predicted_label"].values).astype(int),
