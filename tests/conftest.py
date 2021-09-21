@@ -42,6 +42,9 @@ def fake_dataset(size=256, nfiles=10, fname="data.tsv", max_alpha=0.4):
         path = Path(dirname)
         dataset = path / fname
         lengths = np.linspace(0, max_alpha, nfiles)
+        lengths[:len(lengths) // 2] = lengths[:len(lengths) // 2] / 2
+        lengths[len(lengths) // 2:] = lengths[len(lengths) // 2:] + 0.2
+
         with dump_list(dataset) as files:
             for i, alpha in enumerate(lengths):
                 example = make_blob(0.5, 0.5, 0.5 - alpha, 0.5 + alpha)
