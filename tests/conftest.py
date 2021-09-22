@@ -53,11 +53,9 @@ def fake_dataset(size=256, nfiles=10, fname="data.tsv", max_alpha=0.4):
         path = Path(dirname)
         dataset = path / fname
 
-        lengths = sigmoid_space(0, max_alpha, nfiles)
-        print(lengths)
-
         with dump_list(dataset) as files:
-            for i, alpha in enumerate(lengths):
+            for i in range(nfiles):
+                alpha = max_alpha if i > nfiles // 2 else 0
                 example = make_blob(0.5, 0.5, 0.5 - alpha, 0.5 + alpha)
                 image = blob2image(example)
                 example_path = path / f"{i}.png"
