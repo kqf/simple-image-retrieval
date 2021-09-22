@@ -17,7 +17,7 @@ def max_epochs(request):
 
 def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     df = pd.read_table(fake_dataset)
-    dataset = SimilarityDataset(df.iloc, transform=transform(train=True))
+    dataset = SimilarityDataset(df.iloc, transform=transform(train=False))
     model = build_model(n_outputs=n_dims, max_epochs=max_epochs)
     model.fit(dataset, None)
     assert model.predict(dataset).shape == (len(df), n_dims)
