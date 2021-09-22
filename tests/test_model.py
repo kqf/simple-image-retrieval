@@ -17,13 +17,15 @@ def max_epochs(request):
 
 def test_model(fake_dataset, max_epochs, deterministic, n_dims=100):
     df = pd.read_table(fake_dataset)
-    dataset = SimilarityDataset(df.iloc, transform=transform(train=False))
+    train = SimilarityDataset(df.iloc, transform=transform(train=True))
     model = build_model(n_outputs=n_dims, max_epochs=max_epochs)
-    model.fit(dataset, None)
-    assert model.predict(dataset).shape == (len(df), n_dims)
+    model.fit(train, None)
 
-    finder = ImageFinder(model, dataset, df["label"].to_dict())
-    df["predicted_label"] = finder.search(dataset, k=1)
+    valid = SimilarityDataset(df.iloc, transform=transform(train=False))
+    assert model.predict(valid).shape == (len(df), n_dims)
+
+    finder = ImageFinder(model, valid, df["label"].to_dict())
+    df["predicted_label"] = finder.search(valid, k=1)
     rc = recall(
         df["label"].values.reshape(-1, 1).astype(int),
         np.stack(df["predicted_label"].values).astype(int),
