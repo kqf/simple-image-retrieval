@@ -9,7 +9,7 @@ from pathlib import Path
 
 from model.mc import make_blob, blob2image
 from model.cv import write
-from data.base import dump_list
+from model.io import dump_list
 
 
 @pytest.fixture
@@ -38,7 +38,7 @@ def pytest_addoption(parser):
 
 def sigmoid_space(start, stop, n_points, sigmoid_start=-10, sigmoid_stop=10):
     # Define the
-    x = np.linspace(sigmoid_start,  sigmoid_stop, n_points)
+    x = np.linspace(sigmoid_start, sigmoid_stop, n_points)
 
     # The sigmoid range is (0, 1)
     sigmoid = 1. / (1. + np.exp(-x))
