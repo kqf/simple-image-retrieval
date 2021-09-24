@@ -3,8 +3,8 @@ import logging
 import pandas as pd
 from operator import attrgetter
 
-from data.schema import TARGET_FIELDS
-from data.base import telegram
+from scripts.schema import TARGET_FIELDS
+from scripts.base import telegram
 
 logger = logging.getLogger(__name__)
 
