@@ -6,7 +6,8 @@ import pandas as pd
 from click import Path as cpth
 from pathlib import Path
 
-from data.base import telegram, dump_list, width, height
+from data.base import telegram, width, height
+from model.io import dump_list
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
